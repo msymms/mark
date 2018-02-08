@@ -68,6 +68,61 @@ function humescores_setup() {
 endif;
 add_action( 'after_setup_theme', 'humescores_setup' );
 
+function humescores_fonts_url() {
+	$fonts_url = '';
+
+	/*
+	 * Translators: If there are characters in your language that are not
+	 * supported by PT Serif and Source Sans Pro, translate this to 'off'. Do not translate
+	 * into your own language.
+	 */
+	$pt_serif = _x( 'on', 'PT Serif font: on or off', 'humescores' );
+        $source_sans_pro = _x( 'on', 'Soure Sans Pro font: on or off', 'humescores' );
+
+	$font_families = array();
+        
+        if ( 'off' !== $source_sans_pro ){
+            $font_families[] = 'Source Sans Pro:400, 400i, 700, 900';
+         }
+         
+         if ( 'off' !== $pt_serif ){
+            $font_families[] = 'PT Serif:400, 400i, 700, 700i';
+         }
+        
+        if (in_array('on', array($pt_serif, $source_sans_pro)) ) {
+	
+		$query_args = array(
+			'family' => urlencode( implode( '|', $font_families ) ),
+			'subset' => urlencode( 'latin,latin-ext' ),
+		);
+
+		$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+	}
+
+	return esc_url_raw( $fonts_url );
+}
+
+/**
+ * Add preconnect for Google Fonts.
+ *
+ * @since Humescores 1.0
+ *
+ * @param array  $urls           URLs to print for resource hints.
+ * @param string $relation_type  The relation type the URLs are printed.
+ * @return array $urls           URLs to print for resource hints.
+ */
+function humescores_resource_hints( $urls, $relation_type ) {
+	if ( wp_style_is( 'humescores-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+		$urls[] = array(
+			'href' => 'https://fonts.gstatic.com',
+			'crossorigin',
+		);
+	}
+
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'humescores_resource_hints', 10, 2 );
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -103,7 +158,7 @@ add_action( 'widgets_init', 'humescores_widgets_init' );
  */
 function humescores_scripts() {
 	// Enqueue Google Fonts: Source Sans Pro and PT Serif
-	wp_enqueue_style( 'humescores-fonts', 'https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i|Source+Sans+Pro:400,400i,600,900' );
+	wp_enqueue_style( 'humescores-fonts', humescores_fonts_url() );
 	
 	wp_enqueue_style( 'humescores-style', get_stylesheet_uri() );
 
