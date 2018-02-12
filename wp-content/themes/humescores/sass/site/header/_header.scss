@@ -81,9 +81,16 @@
     
     .site-branding{
         width: 35%;
+        flex: 1 0 auto;
     }
     
     .main-navigation{
         width: 55%;
     }
 }
+
+/*
+Header Menu
+*/
+
+@import "_header-menu.scss";
