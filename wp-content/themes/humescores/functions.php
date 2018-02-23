@@ -1,13 +1,13 @@
 <?php
 /**
- * Humescores functions and definitions.
+ * SCSDesigns-csm functions and definitions.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package Humescores
+ * @package SCSDesigns-csm
  */
 
-if ( ! function_exists( 'humescores_setup' ) ) :
+if ( ! function_exists( 'scsdesigns_csm_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -15,14 +15,14 @@ if ( ! function_exists( 'humescores_setup' ) ) :
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function humescores_setup() {
+function scsdesigns_csm_setup() {
 	/*
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
 	 * If you're building a theme based on Humescores, use a find and replace
-	 * to change 'humescores' to the name of your theme in all the template files.
+	 * to change 'scsdesigns_csm' to the name of your theme in all the template files.
 	 */
-	load_theme_textdomain( 'humescores', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'scsdesigns_csm', get_template_directory() . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
@@ -44,7 +44,7 @@ function humescores_setup() {
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => esc_html__( 'Header', 'humescores' ),
+		'primary' => esc_html__( 'Header', 'scsdesigns_csm' ),
 	) );
 
 	/*
@@ -60,7 +60,7 @@ function humescores_setup() {
 	) );
 
 	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'humescores_custom_background_args', array(
+	add_theme_support( 'custom-background', apply_filters( 'scsdesigns_csm_custom_background_args', array(
 		'default-color' => 'ffffff',
 		'default-image' => '',
 	) ) );
@@ -74,9 +74,9 @@ function humescores_setup() {
         ));
 }
 endif;
-add_action( 'after_setup_theme', 'humescores_setup' );
+add_action( 'after_setup_theme', 'scsdesigns_csm_setup' );
 
-function humescores_fonts_url() {
+function scsdesigns_csm_fonts_url() {
 	$fonts_url = '';
 
 	/*
@@ -84,8 +84,8 @@ function humescores_fonts_url() {
 	 * supported by PT Serif and Source Sans Pro, translate this to 'off'. Do not translate
 	 * into your own language.
 	 */
-	$pt_serif = _x( 'on', 'PT Serif font: on or off', 'humescores' );
-        $source_sans_pro = _x( 'on', 'Soure Sans Pro font: on or off', 'humescores' );
+	$pt_serif = _x( 'on', 'PT Serif font: on or off', 'scsdesigns_csm' );
+        $source_sans_pro = _x( 'on', 'Soure Sans Pro font: on or off', 'scsdesigns_csm' );
 
 	$font_families = array();
         
@@ -119,8 +119,8 @@ function humescores_fonts_url() {
  * @param string $relation_type  The relation type the URLs are printed.
  * @return array $urls           URLs to print for resource hints.
  */
-function humescores_resource_hints( $urls, $relation_type ) {
-	if ( wp_style_is( 'humescores-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+function scsdesigns_csm_resource_hints( $urls, $relation_type ) {
+	if ( wp_style_is( 'scsdesigns_csm-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
 		$urls[] = array(
 			'href' => 'https://fonts.gstatic.com',
 			'crossorigin',
@@ -129,7 +129,7 @@ function humescores_resource_hints( $urls, $relation_type ) {
 
 	return $urls;
 }
-add_filter( 'wp_resource_hints', 'humescores_resource_hints', 10, 2 );
+add_filter( 'wp_resource_hints', 'scsdesigns_csm_resource_hints', 10, 2 );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -138,47 +138,47 @@ add_filter( 'wp_resource_hints', 'humescores_resource_hints', 10, 2 );
  *
  * @global int $content_width
  */
-function humescores_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'humescores_content_width', 640 );
+function scsdesigns_csm_content_width() {
+	$GLOBALS['content_width'] = apply_filters( 'scsdesigns_csm_content_width', 640 );
 }
-add_action( 'after_setup_theme', 'humescores_content_width', 0 );
+add_action( 'after_setup_theme', 'scsdesigns_csm_content_width', 0 );
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function humescores_widgets_init() {
+function scsdesigns_csm_widgets_init() {
 	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'humescores' ),
+		'name'          => esc_html__( 'Sidebar', 'scsdesigns_csm' ),
 		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'humescores' ),
+		'description'   => esc_html__( 'Add widgets here.', 'scsdesigns_csm' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
 }
-add_action( 'widgets_init', 'humescores_widgets_init' );
+add_action( 'widgets_init', 'scsdesigns_csm_widgets_init' );
 
 /**
  * Enqueue scripts and styles.
  */
-function humescores_scripts() {
+function scsdesigns_csm_scripts() {
 	// Enqueue Google Fonts: Source Sans Pro and PT Serif
-	wp_enqueue_style( 'humescores-fonts', humescores_fonts_url() );
+	wp_enqueue_style( 'scsdesigns_csm-fonts', scsdesigns_csm_fonts_url() );
 	
-	wp_enqueue_style( 'humescores-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'scsdesigns_csm-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'humescores-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'scsdesigns_csm-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'humescores-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'scsdesigns_csm-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'humescores_scripts' );
+add_action( 'wp_enqueue_scripts', 'scsdesigns_csm_scripts' );
 
 /**
  * Implement the Custom Header feature.
